@@ -364,15 +364,17 @@ call.enqueue(new Callback() {
 
 ### 五、设置拦截器
 
+![拦截器](../img/interceptors@2x.png)
+
+- 应用拦截器(interceptors@2x.png)
+
+- 网络拦截器(Network Interceptors)
+
 拦截器相关知识
 
 如何添加拦截器
 
 拦截器工作原理
-
-使用压缩
-
-实现缓存功能
 
 ### 六、使用https（自签名证书认证）
 
@@ -380,7 +382,17 @@ https://github.com/square/okhttp/wiki/Recipes
 
 ### 七、其他
 
+使用压缩
+
+实现缓存功能
+
+MediaType解析
+
+json解析
+
 ### 八、源码解析入门
+
+关于源码解析，我打算从发起一个同步的网络请求入手，逐步深入。因为看源码过程中会涉及到一些设计模式和思想的运用，这些会提前熟悉一下相关的东西，过程中也会穿插学习。
 
 1. okhttp用到的设计模式  
 `建造者模式，责任链模式等`
