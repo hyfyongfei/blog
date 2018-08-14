@@ -364,18 +364,33 @@ call.enqueue(new Callback() {
 
 ### 五、设置拦截器
 
+拦截器是okhttp的一个核心也是一个点睛之处，okhttp大部分的核心功能都是通过拦截器来实现的。okhttp内置了几个拦截器用于处理请求前数据的处理、请求的发起以及请求后数据的处理等工作。okhttp也支持自定义拦截器，通过自定义的拦截器可以实现一些特定的功能。不过要自定义拦截器首先要做的是要了解拦截器的工作原理。
+
+从拦截器的种类上来看主要分为这两类：
+
+- 应用拦截器(interceptors@2x.png) ：主要负责与服务器交互前的数据处理和请求完成后的数据处理
+
+- 网络拦截器(Network Interceptors)：主要负责和服务器的请求的建立和返回值的初步处理
+
 ![拦截器](../img/interceptors@2x.png)
 
-- 应用拦截器(interceptors@2x.png)
+**拦截器工作原理**
 
-- 网络拦截器(Network Interceptors)
+okhttp的拦截器使用了责任链模式来设计：通过`Interceptor.Chain`对象将整个okhttp的拦截器体系串联起来一步一步的向下执行。通过责任链模式可以控制拦截器从上到下依次执行，同时可以跳过或者重复执行中间某一个拦截器。
 
-拦截器相关知识
+`通过这幅图是不是看起来清晰多了`
+![拦截器执行流程](../img/拦截器执行流程.jpg)
 
-如何添加拦截器
+**如何添加拦截器**
 
-拦截器工作原理
+我们在构建okhttpClient的时候可以通过OkhttpClient.Builder添加自己的拦截器：
 
+```
+ client = new OkHttpClient.Builder()
+                .addInterceptor(new SelfInterceptor()) // 自定义普通拦截器
+                .addNetworkInterceptor(new SelfNetworkInterceptor()) // 自定义请求过程中的拦截器
+                .build();
+```
 ### 六、使用https（自签名证书认证）
 
 https://github.com/square/okhttp/wiki/Recipes
@@ -396,15 +411,17 @@ json解析
 
 1. okhttp用到的设计模式  
 `建造者模式，责任链模式等`
+
+建造者模式主要适用于一个类需要有多个地方使用，同时不同的地方可能会有不会的具体的实现过程
 2. 一些网络知识（okhttp，okhttps）
 
 (okhttp发起请求大致流程)
+
+keep-alive
 
 ---
 *参考：*
 
 1. [okhttp wiki](https://github.com/square/okhttp/wiki/Recipes)
-
-2. 
 
 ---
